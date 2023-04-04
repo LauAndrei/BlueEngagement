@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using Core.Entities;
+using Core.Interfaces.ServiceInterfaces;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -11,15 +13,9 @@ public static class ApplicationServicesExtensions
 {
     public static IServiceCollection AddApplicationServicesAndRepositories(this IServiceCollection services, IConfiguration configuration)
     {
-        // services.AddScoped<IUnitOfWork, UnitOfWork>();
-        //
-        // services.AddScoped<ITagService, TagService>();
-        //
-        // services.AddScoped<ITokenService, TokenService>();
-        //
-        // services.AddScoped<IQuestionService, QuestionService>();
-        //
-        // services.AddScoped<IAnswerService, AnswerService>();
+        services.AddScoped<ITokenService, TokenService>();
+
+        services.AddScoped<QuestRepository, QuestRepository>();
 
         services.AddIdentity<User, IdentityRole<int>>(config =>
             {
