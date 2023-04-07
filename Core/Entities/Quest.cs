@@ -10,6 +10,8 @@ public class Quest : BaseEntity
     
     public User Owner { get; set; }
     public int OwnerId { get; set; }
+    
+    public DateTime DatePosted { get; set; }
 
-    public virtual List<Proof> Proofs { get; set; }
+    public virtual List<Proof> Proofs { get; set; } = new();
 }

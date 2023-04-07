@@ -6,6 +6,6 @@ public class Badge : BaseEntity
     
     // for the badge (medal) image
     public string? PictureUrl { get; set; }
-    
-    public virtual List<User>? Users { get; set; }
+
+    public virtual List<User> Users { get; set; } = new();
 }

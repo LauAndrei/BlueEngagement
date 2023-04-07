@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Core.Entities;
+using Core.Interfaces.RepositoryInterfaces;
 using Core.Interfaces.ServiceInterfaces;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
@@ -15,7 +16,10 @@ public static class ApplicationServicesExtensions
     {
         services.AddScoped<ITokenService, TokenService>();
 
-        services.AddScoped<QuestRepository, QuestRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        
+        services.AddScoped<IQuestService, QuestService>();
+       
 
         services.AddIdentity<User, IdentityRole<int>>(config =>
             {

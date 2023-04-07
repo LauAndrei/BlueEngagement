@@ -45,7 +45,7 @@ public class AccountController : ControllerBase
         {
             Email = user.Email,
             UserName = user.UserName,
-            Score = 0,
+            Score = user.Score,
             Token = await _tokenService.CreateToken(user)
         };
     }
@@ -90,7 +90,9 @@ public class AccountController : ControllerBase
     /// <summary>
     ///     Creates and saves a new account, and automatically log in the user
     /// </summary>
-    /// <param name="register">The object containing the user's necessary info for registering</param>
+    /// <param name="register">
+    ///     The object containing the user's necessary info for registering
+    /// </param>
     /// <returns></returns>
     /// <exception cref="EmailAlreadyInUseException"></exception>
     /// <exception cref="UserNameAlreadyInUseException"></exception>

@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230407153521_Add_DateTime_To_Quest_And_Proof")]
+    partial class Add_DateTime_To_Quest_And_Proof
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.14");
@@ -29,7 +31,7 @@ namespace Infrastructure.Repositories.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("BadgeUser", (string)null);
+                    b.ToTable("BadgeUser");
                 });
 
             modelBuilder.Entity("Core.Entities.Badge", b =>
@@ -47,7 +49,7 @@ namespace Infrastructure.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Badges", (string)null);
+                    b.ToTable("Badges");
                 });
 
             modelBuilder.Entity("Core.Entities.Proof", b =>
@@ -77,7 +79,7 @@ namespace Infrastructure.Repositories.Migrations
 
                     b.HasIndex("QuestId");
 
-                    b.ToTable("Proofs", (string)null);
+                    b.ToTable("Proofs");
                 });
 
             modelBuilder.Entity("Core.Entities.Quest", b =>
@@ -106,7 +108,7 @@ namespace Infrastructure.Repositories.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Quests", (string)null);
+                    b.ToTable("Quests");
                 });
 
             modelBuilder.Entity("Core.Entities.TakenQuest", b =>
@@ -130,7 +132,7 @@ namespace Infrastructure.Repositories.Migrations
 
                     b.HasIndex("QuestId");
 
-                    b.ToTable("TakenQuests", (string)null);
+                    b.ToTable("TakenQuests");
                 });
 
             modelBuilder.Entity("Core.Entities.User", b =>
