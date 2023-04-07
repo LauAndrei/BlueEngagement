@@ -14,4 +14,7 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole<int>, int>
     
     public DbSet<User> Users { get; set; }
     public DbSet<Quest> Quests { get; set; }
+    public DbSet<Proof> Proofs { get; set; }
+    public DbSet<TakenQuest> TakenQuests { get; set; }
+    public DbSet<Badge> Badges { get; set; }
 }

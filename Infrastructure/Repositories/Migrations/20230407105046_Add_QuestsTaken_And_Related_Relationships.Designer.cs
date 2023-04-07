@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,45 +11,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230407105046_Add_QuestsTaken_And_Related_Relationships")]
+    partial class Add_QuestsTaken_And_Related_Relationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.14");
-
-            modelBuilder.Entity("BadgeUser", b =>
-                {
-                    b.Property<int>("BadgesId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("BadgesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("BadgeUser");
-                });
-
-            modelBuilder.Entity("Core.Entities.Badge", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PictureUrl")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Badges");
-                });
 
             modelBuilder.Entity("Core.Entities.Proof", b =>
                 {
@@ -103,7 +72,7 @@ namespace Infrastructure.Repositories.Migrations
                     b.ToTable("Quests");
                 });
 
-            modelBuilder.Entity("Core.Entities.TakenQuest", b =>
+            modelBuilder.Entity("Core.Entities.QuestsTaken", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -124,7 +93,7 @@ namespace Infrastructure.Repositories.Migrations
 
                     b.HasIndex("QuestId");
 
-                    b.ToTable("TakenQuests");
+                    b.ToTable("QuestsTaken");
                 });
 
             modelBuilder.Entity("Core.Entities.User", b =>
@@ -329,21 +298,6 @@ namespace Infrastructure.Repositories.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("BadgeUser", b =>
-                {
-                    b.HasOne("Core.Entities.Badge", null)
-                        .WithMany()
-                        .HasForeignKey("BadgesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Core.Entities.Proof", b =>
                 {
                     b.HasOne("Core.Entities.User", "Owner")
@@ -374,10 +328,10 @@ namespace Infrastructure.Repositories.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Core.Entities.TakenQuest", b =>
+            modelBuilder.Entity("Core.Entities.QuestsTaken", b =>
                 {
                     b.HasOne("Core.Entities.User", "Owner")
-                        .WithMany("TakenQuests")
+                        .WithMany("QuestsTaken")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -455,7 +409,7 @@ namespace Infrastructure.Repositories.Migrations
 
                     b.Navigation("Proofs");
 
-                    b.Navigation("TakenQuests");
+                    b.Navigation("QuestsTaken");
                 });
 #pragma warning restore 612, 618
         }

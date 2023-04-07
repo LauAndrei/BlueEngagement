@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,45 +11,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230407103443_Add_Relationship_User-Proof")]
+    partial class Add_Relationship_UserProof
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.14");
-
-            modelBuilder.Entity("BadgeUser", b =>
-                {
-                    b.Property<int>("BadgesId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("BadgesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("BadgeUser");
-                });
-
-            modelBuilder.Entity("Core.Entities.Badge", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PictureUrl")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Badges");
-                });
 
             modelBuilder.Entity("Core.Entities.Proof", b =>
                 {
@@ -101,30 +70,6 @@ namespace Infrastructure.Repositories.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Quests");
-                });
-
-            modelBuilder.Entity("Core.Entities.TakenQuest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("QuestId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.HasIndex("QuestId");
-
-                    b.ToTable("TakenQuests");
                 });
 
             modelBuilder.Entity("Core.Entities.User", b =>
@@ -329,21 +274,6 @@ namespace Infrastructure.Repositories.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("BadgeUser", b =>
-                {
-                    b.HasOne("Core.Entities.Badge", null)
-                        .WithMany()
-                        .HasForeignKey("BadgesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Core.Entities.Proof", b =>
                 {
                     b.HasOne("Core.Entities.User", "Owner")
@@ -372,25 +302,6 @@ namespace Infrastructure.Repositories.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("Core.Entities.TakenQuest", b =>
-                {
-                    b.HasOne("Core.Entities.User", "Owner")
-                        .WithMany("TakenQuests")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Entities.Quest", "Quest")
-                        .WithMany()
-                        .HasForeignKey("QuestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Owner");
-
-                    b.Navigation("Quest");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -454,8 +365,6 @@ namespace Infrastructure.Repositories.Migrations
                     b.Navigation("OwnedQuests");
 
                     b.Navigation("Proofs");
-
-                    b.Navigation("TakenQuests");
                 });
 #pragma warning restore 612, 618
         }

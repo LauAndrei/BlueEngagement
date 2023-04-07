@@ -28,7 +28,12 @@ public class AccountController : ControllerBase
         _tokenService = tokenService;
     }
 
-
+    /// <summary>
+    ///     Method tested;
+    ///     Gets the logged in user having the token renewed
+    /// Url path from root: url/Account/
+    /// </summary>
+    /// <returns>The current user's details having the token renewed</returns>
     [HttpGet]
     [Authorize]
     public async Task<ActionResult<LoggedInUserDto>> GetCurrentUser()
@@ -44,7 +49,16 @@ public class AccountController : ControllerBase
             Token = await _tokenService.CreateToken(user)
         };
     }
-
+    
+    /// <summary>
+    ///     Method tested;
+    ///     The method search if a user exists with provided email / username and password
+    ///     If yes, creates a token for the user
+    ///     If not, it means that the user either entered wrong credentials or doesn't exist at all
+    ///  so we will return unauthorized.
+    /// </summary>
+    /// <param name="loginDto">The dto containing user's email / username and the password</param>
+    /// <returns></returns>
     [HttpPost]
     [Route("login")]
     public async Task<ActionResult<LoggedInUserDto>> Login(LoginDto loginDto)
@@ -73,6 +87,13 @@ public class AccountController : ControllerBase
         return user.ToLoggedInUserDto(await _tokenService.CreateToken(user));
     }
 
+    /// <summary>
+    ///     Creates and saves a new account, and automatically log in the user
+    /// </summary>
+    /// <param name="register">The object containing the user's necessary info for registering</param>
+    /// <returns></returns>
+    /// <exception cref="EmailAlreadyInUseException"></exception>
+    /// <exception cref="UserNameAlreadyInUseException"></exception>
     [HttpPost]
     [Route("register")]
     public async Task<ActionResult<LoggedInUserDto>> Register(RegisterDto register)
@@ -108,6 +129,10 @@ public class AccountController : ControllerBase
         return user.ToLoggedInUserDto(await _tokenService.CreateToken(user));
     }
 
+    /// <summary>
+    ///     Gets the list of users for manager
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     [Route("GetAllUsers")]
     [Authorize(Roles = ROLES_CONSTANTS.ROLES.MANAGER)]
