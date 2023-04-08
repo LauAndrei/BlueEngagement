@@ -9,4 +9,10 @@ public class TakenQuest : BaseEntity
     public int QuestId { get; set; }
 
     public QuestStatus Status { get; set; } = QuestStatus.Accepted;
+
+    public TakenQuest(int ownerId, int questId)
+    {
+        OwnerId = ownerId;
+        QuestId = questId;
+    }
 }

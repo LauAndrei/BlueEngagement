@@ -130,16 +130,4 @@ public class AccountController : ControllerBase
         
         return user.ToLoggedInUserDto(await _tokenService.CreateToken(user));
     }
-
-    /// <summary>
-    ///     Gets the list of users for manager
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet]
-    [Route("GetAllUsers")]
-    [Authorize(Roles = ROLES_CONSTANTS.ROLES.MANAGER)]
-    public async Task<List<UserDto>> GetAllUsers()
-    {
-       return await _userManager.Users.Select(u => u.ToUserDto()).ToListAsync();
-    }
 }

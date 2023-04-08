@@ -1,5 +1,7 @@
-﻿using Core.Dtos.QuestDtos;
+﻿using Core.Dtos.ProofDto;
+using Core.Dtos.QuestDtos;
 using Core.Entities;
+using Core.EntityExtensions.ProofExtensions;
 using Core.EntityExtensions.QuestExtensions;
 using Core.Interfaces.RepositoryInterfaces;
 using Core.Interfaces.ServiceInterfaces;
@@ -58,16 +60,18 @@ public class QuestService : IQuestService
     /// </summary>
     /// <param name="newQuestDto">Object containing the newQuestion details</param>
     /// <param name="author">Author retrieved from controller</param>
-    /// <returns>True or false, representing if the operation was successfully or not</returns>
-    public async Task<bool> PostNewQuest(NewQuestDto newQuestDto, User author)
+    /// <returns>The new quest converted to dto</returns>
+    public async Task<QuestDto> PostNewQuest(NewQuestDto newQuestDto, User author)
     {
         var questToAdd = newQuestDto.ToQuest(author.Id);
 
-        await _unitOfWork.QuestRepository.AddAsync(questToAdd);
+        var addedQuest = await _unitOfWork.QuestRepository.AddAsync(questToAdd);
         
         author.Score -= newQuestDto.Reward * newQuestDto.Capacity;
 
-        return await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
+
+        return addedQuest.Entity.ToQuestDto(author.UserName);
     }
 
     /// <summary>
@@ -96,5 +100,20 @@ public class QuestService : IQuestService
         var quest = await _unitOfWork.QuestRepository.FindAsync(questId);
 
         return quest?.OwnerId == userId;
+    }
+
+    /// <summary>
+    ///     Gets the reward and the maximum number of rewards (capacity) for a quest
+    ///   and returns them
+    /// </summary>
+    /// <param name="questId">The id of the quest to retrieve</param>
+    /// <returns>An object containing the quest reward and its capacity (number of rewards left)</returns>
+    public async Task<Quest> GetQuestRewardAndCapacity(int questId)
+    {
+        return await _unitOfWork.QuestRepository
+            .GetAll()
+            .Include(q => q.Proofs)
+            .Where(q => q.Id == questId)
+            .FirstAsync();
     }
 }

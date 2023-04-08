@@ -1,5 +1,6 @@
 ﻿using API.Extensions.ClaimsExtensions;
 using Core.Constants;
+using Core.Dtos.ProofDto;
 using Core.Dtos.QuestDtos;
 using Core.Entities;
 using Core.Exceptions;
@@ -55,13 +56,13 @@ public class QuestController : ControllerBase
     ///   asynchronously calls the method from the service.
     /// </summary>
     /// <param name="newQuestDto"></param>
-    /// <returns>A boolean indicating if the operation was successfully or not</returns>
+    /// <returns>The new quest converted into a dto</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="NotFoundException"></exception>
     /// <exception cref="NotEnoughPointsException"></exception>
     [HttpPost]
     [Route("PostNewQuest")]
-    public async Task<bool> PostNewQuest(NewQuestDto newQuestDto)
+    public async Task<QuestDto> PostNewQuest(NewQuestDto newQuestDto)
     {
         if (newQuestDto is null)
         {

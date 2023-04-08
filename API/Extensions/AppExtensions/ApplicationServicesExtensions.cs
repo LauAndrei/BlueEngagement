@@ -19,7 +19,9 @@ public static class ApplicationServicesExtensions
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         services.AddScoped<IQuestService, QuestService>();
-       
+
+        services.AddScoped<ITakenQuestService, TakenQuestService>();
+
 
         services.AddIdentity<User, IdentityRole<int>>(config =>
             {

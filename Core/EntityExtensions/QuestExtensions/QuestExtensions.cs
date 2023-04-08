@@ -16,6 +16,18 @@ public static class QuestExtensions
             DatePosted = quest.DatePosted
         };
     }
+    
+    public static QuestDto ToQuestDto(this Quest quest, string ownerUsername)
+    {
+        return new QuestDto
+        {
+            Id = quest.Id,
+            Description = quest.Description,
+            Reward = quest.Reward,
+            OwnerUsername = ownerUsername,
+            DatePosted = quest.DatePosted
+        };
+    }
 
     public static Quest ToQuest(this NewQuestDto newQuestDto, int authorId)
     {
@@ -37,9 +49,18 @@ public static class QuestExtensions
             Id = quest.Id,
             Description = quest.Description,
             Reward = quest.Reward,
-            MaxRewards = quest.Capacity,
+            RewardsLeft = quest.Capacity,
             OwnerUsername = quest.Owner.UserName,
             NumberOfCompletions = quest.Proofs.Count
+        };
+    }
+
+    public static QuestRewardAndCapacity ToQuestRewardAndCapacity(this Quest quest)
+    {
+        return new QuestRewardAndCapacity
+        {
+            Reward = quest.Reward,
+            Capacity = quest.Capacity
         };
     }
 }

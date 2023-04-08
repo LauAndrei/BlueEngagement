@@ -8,7 +8,7 @@ public class FullQuestDetailsDto
     
     public int Reward { get; set; }
     
-    public int MaxRewards { get; set; }
+    public int RewardsLeft { get; set; }
     
     public string OwnerUsername { get; set; } 
     
