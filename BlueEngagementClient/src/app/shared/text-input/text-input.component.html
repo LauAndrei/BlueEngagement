@@ -1,0 +1,26 @@
+<div class="form-floating">
+    <input
+        [formControl]="control"
+        [ngClass]="{
+            'is-invalid':
+                (control && control.errors?.['required']) &&
+                (control!.touched || formSubmitted)
+
+            }"
+        class="form-control"
+        id="{{ placeholder }}"
+        placeholder="{{ placeholder }}"
+        type="{{ type }}"
+    />
+    <label for="{{ label }}">{{ label }}</label>
+    <small
+        *ngIf="
+        (
+        control &&
+        control.errors?.['required']) &&
+    (control!.touched || formSubmitted)
+        "
+        class="text-danger mb-2 d-flex"
+        >{{ label }} is required</small
+    >
+</div>

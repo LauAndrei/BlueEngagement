@@ -4,10 +4,20 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AccountRoutingModule } from './account-routing.module';
 import { AccountComponent } from './account.component';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [AccountComponent, LoginComponent, RegisterComponent],
-    imports: [CommonModule, AccountRoutingModule, RouterOutlet],
+    imports: [
+        CommonModule,
+        AccountRoutingModule,
+        RouterOutlet,
+        RouterModule,
+        SharedModule,
+        ReactiveFormsModule,
+        FormsModule,
+    ],
 })
 export class AccountModule {}

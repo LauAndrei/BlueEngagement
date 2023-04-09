@@ -1,1 +1,39 @@
-<p>login works!</p>
+<!--suppress TypeScriptValidateTypes -->
+<div class="text-center">
+    <main class="form-signin w-100 m-auto">
+        <form>
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+            <div>
+                <app-text-input
+                    [formControl]="this.form.controls['usernameOrEmail']"
+                    [formSubmitted]="formSubmitted"
+                    [label]="'Username or Email'"
+                    [placeholder]="'usernameOrEmail'"
+                    [type]="'email'"
+                >
+                </app-text-input>
+            </div>
+
+            <div>
+                <app-text-input
+                    [formControl]="this.form.controls['password']"
+                    [formSubmitted]="formSubmitted"
+                    [label]="'Password'"
+                    [placeholder]="'password'"
+                >
+                </app-text-input>
+            </div>
+
+            <button
+                (click)="onSubmit()"
+                class="w-100 btn btn-lg btn-primary mt-4"
+                type="submit"
+            >
+                Sign in
+            </button>
+
+            <p>Are you new here? <a routerLink="/register">Register</a></p>
+        </form>
+    </main>
+</div>

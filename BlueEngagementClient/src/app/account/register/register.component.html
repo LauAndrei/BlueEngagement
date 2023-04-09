@@ -1,31 +1,69 @@
-<div class='text-center'>
-    <main class='form-signin w-100 m-auto'>
+<!--suppress ALL -->
+<div class="text-center">
+    <main class="form-signin w-100 m-auto">
         <form>
-            <h1 class='h3 mb-3 fw-normal'>Please sign in</h1>
+            <h1 class="h3 mb-3 fw-normal">Register</h1>
 
-            <div class='form-floating mb-1'>
-                <input
-                    class='form-control'
-                    id='floatingInput'
-                    placeholder='name@example.com'
-                    type='email'
-                />
-                <label for='floatingInput'>Email address</label>
+            <div class="mb-1">
+                <app-text-input
+                    [formControl]="this.form.controls['firstName']"
+                    [formSubmitted]="formSubmitted"
+                    [label]="'First Name'"
+                    [placeholder]="'FirstName'"
+                >
+                </app-text-input>
             </div>
 
-            <div class='form-floating'>
-                <input
-                    class='form-control'
-                    id='floatingPassword'
-                    placeholder='Password'
-                    type='password'
-                />
-                <label for='floatingPassword'>Password</label>
+            <div class="mb-1">
+                <app-text-input
+                    [formControl]="this.form.controls['lastName']"
+                    [formSubmitted]="formSubmitted"
+                    [label]="'Last Name'"
+                    [placeholder]="'LastName'"
+                >
+                </app-text-input>
             </div>
 
-            <button class='w-100 btn btn-lg btn-primary mt-4' type='submit'>
+            <div class="mb-1">
+                <app-text-input
+                    [formControl]="this.form.controls['username']"
+                    [formSubmitted]="formSubmitted"
+                    [label]="'User Name'"
+                    [placeholder]="'UserName'"
+                >
+                </app-text-input>
+            </div>
+
+            <div class="mb-1">
+                <app-text-input
+                    [formControl]="this.form.controls['email']"
+                    [formSubmitted]="formSubmitted"
+                    [label]="'Email'"
+                    [placeholder]="'Email'"
+                    [type]="'email'"
+                >
+                </app-text-input>
+            </div>
+
+            <div class="form-floating">
+                <app-text-input
+                    [formControl]="this.form.controls['password']"
+                    [formSubmitted]="formSubmitted"
+                    [label]="'Password'"
+                    [placeholder]="'Password'"
+                >
+                </app-text-input>
+            </div>
+
+            <button
+                (click)="onSubmit()"
+                class="w-100 btn btn-lg btn-primary mt-4"
+                type="submit"
+            >
                 Sign in
             </button>
+
+            <p>Already have an account? <a routerLink="/login">Log In</a></p>
         </form>
     </main>
 </div>
