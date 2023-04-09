@@ -22,6 +22,7 @@ public static class ApplicationServicesExtensions
 
         services.AddScoped<ITakenQuestService, TakenQuestService>();
 
+        services.AddScoped<IBadgeService, BadgeService>();
 
         services.AddIdentity<User, IdentityRole<int>>(config =>
             {
