@@ -4,4 +4,8 @@ export const ENDPOINTS_MAP = {
         LOGIN: 'account/login',
         REGISTER: 'account/register',
     },
+
+    USER: {
+        GET_LEADERBOARD: 'user/getLeaderboard',
+    },
 };

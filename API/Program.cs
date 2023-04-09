@@ -23,7 +23,7 @@ builder.Services.AddApplicationServicesAndRepositories(builder.Configuration);
 builder.Services.AddCors(option =>
 {
     option.AddPolicy("CorsPolicy",
-        policy => { policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"); });
+        policy => { policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4500"); });
 });
 
 var app = builder.Build();

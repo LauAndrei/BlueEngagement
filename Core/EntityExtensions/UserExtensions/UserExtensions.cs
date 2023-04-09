@@ -32,6 +32,7 @@ public static class UserExtensions
     {
         return new UserDto
         {
+            UserName = user.UserName,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Score = user.Score

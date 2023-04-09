@@ -1,0 +1,50 @@
+<nav
+    *ngIf="currentUser$ | async as currentUser"
+    class="navbar navbar-expand-lg navbar-dark bg-primary flex-md-row justify-content-between"
+>
+    <div class="container-xl">
+        <a class="navbar-brand" routerLink="/home" routerLinkActive="active"
+            >Blue</a
+        >
+
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        routerLink="/home"
+                        routerLinkActive="active"
+                        >Home</a
+                    >
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        routerLink="/quests"
+                        routerLinkActive="active"
+                        >Quests</a
+                    >
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        routerLink="/leaderboard"
+                        routerLinkActive="active"
+                        >Leaderboard</a
+                    >
+                </li>
+            </ul>
+
+            <div>
+                <a class="employee">
+                    Hello,
+                    <span routerLink="/profile">{{
+                        currentUser.userName
+                    }}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

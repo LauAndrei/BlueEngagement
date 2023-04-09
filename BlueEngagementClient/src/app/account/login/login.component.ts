@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         if (this.form.valid) {
             this.accountService.login(this.form.value).subscribe(
                 () => {
-                    this.router.navigateByUrl('/home');
+                    this.router.navigateByUrl('/tasks');
                     this.toastrService.success(RESPONSE.SUCCESS);
                 },
                 (err) => {

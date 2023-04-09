@@ -2,9 +2,9 @@
 <div class="text-center">
     <main class="form-signin w-100 m-auto">
         <form>
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <h1 class="h3 mb-3 fw-normal">Log in</h1>
 
-            <div>
+            <div class="mb-1">
                 <app-text-input
                     [formControl]="this.form.controls['usernameOrEmail']"
                     [formSubmitted]="formSubmitted"
@@ -15,12 +15,13 @@
                 </app-text-input>
             </div>
 
-            <div>
+            <div class="mb-1">
                 <app-text-input
                     [formControl]="this.form.controls['password']"
                     [formSubmitted]="formSubmitted"
                     [label]="'Password'"
                     [placeholder]="'password'"
+                    [type]="'password'"
                 >
                 </app-text-input>
             </div>
