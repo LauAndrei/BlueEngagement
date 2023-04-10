@@ -8,6 +8,10 @@ public interface IQuestService
 {
     public Task<List<QuestDto>> GetAllQuests();
 
+    public Task<List<QuestDto>> GetQuestsFromUser(string ownerUsername);
+
+    public Task<string> GetQuestStatusForUser(int questId, int userId);
+
     public Task<FullQuestDetailsDto?> GetQuestDetails(int questId);
 
     public Task<QuestDto> PostNewQuest(NewQuestDto newQuestionDto, User author);

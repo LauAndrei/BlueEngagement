@@ -23,8 +23,8 @@ public class QuestService : IQuestService
     
     /// <summary>
     ///     Method tested;
-    ///     Use this for testing purposes only
-    ///  - In production a better method will be used -
+    ///     Use this for testing purposes / demo only
+    ///  - In production a better method, with pagination and filters will be used -
     /// </summary>
     /// <returns></returns>
     public async Task<List<QuestDto>> GetAllQuests()
@@ -34,6 +34,44 @@ public class QuestService : IQuestService
             .Select(q => q.ToQuestDto())
             .ToListAsync();
     }
+    
+    /// <summary>
+    ///     Gets the quests posted by an user.
+    ///     Here the result should also be paginated, but for demo purposes
+    ///   should be fine
+    /// </summary>
+    /// <param name="ownerUsername"></param>
+    /// <returns></returns>
+    public async Task<List<QuestDto>> GetQuestsFromUser(string ownerUsername)
+    {
+        return await _unitOfWork.QuestRepository.GetAll()
+            .Include(q => q.Owner)
+            .Where(q => q.Owner.UserName == ownerUsername)
+            .Select(q => q.ToQuestDto())
+            .ToListAsync();
+    }
+
+    /// <summary>
+    ///     Get the status of the quest for a user.
+    /// </summary>
+    /// <param name="questId">The id of the quest</param>
+    /// <param name="userId">The id of the logged in user</param>
+    /// <returns>The string representing the value of the quest status</returns>
+    public async Task<string> GetQuestStatusForUser(int questId, int userId)
+    {
+        var foundTakenQuest = await _unitOfWork.TakenQuestRepository
+            .GetAll()
+            .Where(tq => tq.OwnerId == userId && tq.QuestId == questId)
+            .FirstOrDefaultAsync();
+
+        if (foundTakenQuest is null)
+        {
+            return Enum.GetName(QuestStatus.NotAccepted);
+        }
+
+        return Enum.GetName(foundTakenQuest.Status);
+    }
+
 
     /// <summary>
     ///     Gets the details of the quest with id questId

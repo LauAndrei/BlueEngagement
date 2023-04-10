@@ -1,14 +1,9 @@
-<div class="container">
+<div class="container pb-4">
     <h2>Quests</h2>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <app-quest-card></app-quest-card>
-            </div>
-            <div class="col">
-                <app-quest-card></app-quest-card>
-            </div>
+    <div class="d-grid gap-3 custom-grid">
+        <div *ngFor="let quest of quests" class="col">
+            <app-quest-card [quest]="quest"></app-quest-card>
         </div>
     </div>
 </div>

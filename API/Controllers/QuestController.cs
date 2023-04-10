@@ -1,7 +1,7 @@
 ﻿using API.Extensions.ClaimsExtensions;
 using Core.Constants;
-using Core.Dtos.ProofDto;
 using Core.Dtos.QuestDtos;
+using Core.Dtos.StringDto;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Interfaces.ServiceInterfaces;
@@ -38,14 +38,39 @@ public class QuestController : ControllerBase
 
     /// <summary>
     ///     Method tested;
+    ///     Asynchronously gets the questDetails by calling GetQuestDetails method from service
+    ///   and then, if it's not null, gets the corresponding status for this quest for the logged in user.
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="id">The id of the quest to retrieve</param>
     /// <returns></returns>
     [HttpGet]
     [Route("GetQuestDetails/{id:int}")]
-    public Task<FullQuestDetailsDto?> GetQuestDetails(int id)
+    public async Task<FullQuestDetailsDto?> GetQuestDetails(int id)
     {
-        return _questService.GetQuestDetails(id);
+        var questDetails = await _questService.GetQuestDetails(id);
+
+        if (questDetails is null)
+        {
+            throw new NotFoundException("Quest not found!");
+        }
+
+        var loggedInUserId = User.GetUserId();
+
+        questDetails.QuestStatus = await _questService.GetQuestStatusForUser(id, loggedInUserId);
+
+        return questDetails;
+    }
+
+    /// <summary>
+    ///     Method tested;
+    /// </summary>
+    /// <param name="ownerUsername"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [Route("GetQuestsFromUser")]
+    public async Task<List<QuestDto>> GetQuestsFromUser(StringDto ownerUsername)
+    {
+        return await _questService.GetQuestsFromUser(ownerUsername.OwnerUsername);
     }
 
     /// <summary>

@@ -10,7 +10,9 @@ public static class QuestExtensions
         return new QuestDto
         {
             Id = quest.Id,
-            Description = quest.Description,
+            Title = quest.Title,
+            Slug = quest.Slug,
+            Description = quest.Description.Length > 160 ? quest.Description[..160] + ".." : quest.Description,
             Reward = quest.Reward,
             OwnerUsername = quest.Owner.UserName,
             DatePosted = quest.DatePosted
@@ -22,6 +24,8 @@ public static class QuestExtensions
         return new QuestDto
         {
             Id = quest.Id,
+            Title = quest.Title,
+            Slug = quest.Slug,
             Description = quest.Description,
             Reward = quest.Reward,
             OwnerUsername = ownerUsername,
@@ -34,6 +38,8 @@ public static class QuestExtensions
         return new Quest
         {
             Id = 0,
+            Title = newQuestDto.Title,
+            Slug = newQuestDto.Title.ToLower().Replace(' ', '-'),
             Description = newQuestDto.Description,
             Reward = newQuestDto.Reward,
             Capacity = newQuestDto.Capacity,
@@ -47,11 +53,13 @@ public static class QuestExtensions
         return new FullQuestDetailsDto
         {
             Id = quest.Id,
+            Title = quest.Title,
             Description = quest.Description,
             Reward = quest.Reward,
             RewardsLeft = quest.Capacity,
             OwnerUsername = quest.Owner.UserName,
-            NumberOfCompletions = quest.Proofs.Count
+            NumberOfCompletions = quest.Proofs.Count,
+            DatePosted = quest.DatePosted
         };
     }
 

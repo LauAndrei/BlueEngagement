@@ -1,0 +1,78 @@
+<div *ngIf="this.questDetails" class="container mt-3">
+    <div class="row mt-2">
+        <div class="col-6">
+            <h3>{{ this.questDetails.title }}</h3>
+
+            <p>
+                Proposed by:
+                <i class="text-primary">{{
+                    this.questDetails.ownerUsername
+                }}</i>
+            </p>
+
+            <p>
+                Posted:
+                {{ this.questDetails.datePosted | dateAgo }}
+                <img src="assets/clock_icon.png" />
+            </p>
+
+            <div>
+                <p class="d-flex flex-row align-items-center">
+                    Reward:
+                    <strong class="ms-2">{{ this.questDetails.reward }}</strong>
+                    <img class="star" src="assets/star_icon.png" />
+                </p>
+                <p>
+                    Rewards left:
+                    <span class="text-danger fw-bold">
+                        {{ this.questDetails.rewardsLeft }}
+                    </span>
+                </p>
+                <p>
+                    Completed by:
+                    {{ this.questDetails.numberOfCompletions }} users
+                </p>
+            </div>
+
+            <h4>Description:</h4>
+            <p>{{ this.questDetails.description }}</p>
+
+            <button
+                *ngIf="questDetails.questStatus == NOT_ACCEPTED"
+                class="btn btn-primary"
+            >
+                Accept Quest
+            </button>
+
+            <button
+                *ngIf="questDetails.questStatus == ACCEPTED"
+                class="btn btn-outline-primary"
+                disabled
+            >
+                Quest Accepted
+            </button>
+
+            <div
+                *ngIf="questDetails.questStatus == COMPLETED"
+                class="d-flex flex-row align-items-center"
+            >
+                <img class="prize" src="assets/prize_icon.png" />2
+                <h3 class="text-primary">Quest Completed!</h3>
+                <img class="prize" src="assets/prize_icon.png" />
+            </div>
+        </div>
+
+        <div class="col-6">
+            <h3>Quests proposed by {{ this.questDetails.ownerUsername }}:</h3>
+            <div *ngFor="let card of questCardsFromUser" class="mt-2">
+                <app-quest-card [main]="false" [quest]="card"></app-quest-card>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!this.questDetails && !isLoading" class="container">
+    <h1 class="text-center text-danger mt-5">
+        The quest you're looking for doesn't exist!
+    </h1>
+</div>

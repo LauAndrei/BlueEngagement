@@ -8,4 +8,10 @@ export const ENDPOINTS_MAP = {
     USER: {
         GET_LEADERBOARD: 'user/getLeaderboard',
     },
+
+    QUEST: {
+        GET_ALL_QUESTS: 'quest/GetAllQuests',
+        GET_QUEST_DETAILS: 'quest/GetQuestDetails/',
+        GET_ALL_QUESTS_FROM_USER: 'quest/GetQuestsFromUser',
+    },
 };

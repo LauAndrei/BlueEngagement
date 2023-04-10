@@ -1,10 +1,13 @@
-<div class="d-flex flex-column justify-content-center align-items-center">
+<div
+    *ngIf="currentUser$ | async as currentUser"
+    class="d-flex flex-column justify-content-center align-items-center"
+>
     <div>
         <img src="../../../assets/avatar_profile_icon.png" />
     </div>
 
     <div class="my-3">
-        <h4>Username</h4>
+        <h4>{{ currentUser.userName }}</h4>
     </div>
     <div class="card w-100">
         <ul class="list-group list-group-flush">
@@ -23,7 +26,13 @@
             <li
                 class="list-group-item d-flex justify-content-center align-items-center flex-wrap"
             >
-                <h6 (click)="logOut()" class="my-1">Log Out</h6>
+                <h6 class="my-1">Completed Quests</h6>
+            </li>
+
+            <li
+                class="list-group-item d-flex justify-content-center align-items-center flex-wrap"
+            >
+                <h6 (click)="logOut()" class="my-1 text-danger">Log Out</h6>
             </li>
         </ul>
     </div>
