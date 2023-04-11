@@ -1,7 +1,9 @@
 ﻿using Core.Dtos.ProofDto;
-using Core.Dtos.TakenQuestDto;
+using Core.Dtos.QuestDtos;
+using Core.Dtos.TakenQuestDtos;
 using Core.Entities;
 using Core.EntityExtensions.ProofExtensions;
+using Core.EntityExtensions.QuestExtensions;
 using Core.EntityExtensions.TakenQuestExtensions;
 using Core.Interfaces.RepositoryInterfaces;
 using Core.Interfaces.ServiceInterfaces;
@@ -21,13 +23,15 @@ public class TakenQuestService : ITakenQuestService
         _userManager = userManager;
     }
 
-    public async Task<List<TakenQuestDto>> GetAllTakenQuestForUser(int userId)
+    public async Task<List<QuestDto>> GetAllAcceptedQuestForUser(int userId)
     {
         return await _unitOfWork.TakenQuestRepository
             .GetAll()
             .Include(tq => tq.Quest)
-            .Select(tq => tq.ToTakenQuestDto())
-            .ToListAsync();
+                .ThenInclude(tq => tq.Owner)
+            .Where(tq => tq.OwnerId == userId && tq.Status == QuestStatus.Accepted)
+            .Select(tq => tq.ToQuestDto())
+            .ToListAsync();    
     }
 
     public async Task<TakenQuest?> GetTakenQuestById(int id)
@@ -36,6 +40,15 @@ public class TakenQuestService : ITakenQuestService
             .GetAll()
             .Include(tq => tq.Quest)
             .Where(tq => tq.Id == id)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<TakenQuest?> FindTakenQuestByUserIdAndQuestId(int userId, int questId)
+    {
+        return await _unitOfWork.TakenQuestRepository
+            .GetAll()
+            .Where(tq => tq.OwnerId == userId && tq.QuestId == questId)
+            .Include(tq => tq.Quest)
             .FirstOrDefaultAsync();
     }
     
@@ -69,6 +82,17 @@ public class TakenQuestService : ITakenQuestService
             .FirstOrDefaultAsync();
 
         return foundTakenQuest is null;
+    }
+
+    public async Task<List<QuestDto>> GetAllCompletedQuestsForUser(int userId)
+    {
+        return await _unitOfWork.TakenQuestRepository
+            .GetAll()
+            .Where(tq => tq.OwnerId == userId && tq.Status == QuestStatus.Completed)
+            .Include(tq => tq.Quest)
+                .ThenInclude(q => q.Owner)
+            .Select(tq => tq.ToQuestDto())
+            .ToListAsync();
     }
     
     public async Task<bool> CompleteTakenQuest(int userId, ProofDto proofDto, TakenQuest takenQuest)

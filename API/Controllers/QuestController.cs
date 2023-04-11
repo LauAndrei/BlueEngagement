@@ -31,9 +31,29 @@ public class QuestController : ControllerBase
     /// <returns></returns>
     [HttpGet]
     [Route("GetAllQuests")]
-    public Task<List<QuestDto>> GetAllQuests()
+    public async Task<List<QuestDto>> GetAllQuests()
     {
-        return _questService.GetAllQuests();
+        return await _questService.GetAllQuests();
+    }
+
+    /// <summary>
+    ///     Method tested;
+    ///     Gets the logged in user name and then calls the method from the service
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotFoundException"></exception>
+    [HttpGet]
+    [Route("GetLoggedInUsersQuests")]
+    public async Task<List<QuestDto>> GetLoggedInUsersQuests()
+    {
+        var loggedInUserName = HttpContext.User.Identity.Name;
+
+        if (loggedInUserName is null)
+        {
+            throw new NotFoundException();
+        }
+
+        return await _questService.GetQuestsFromUser(loggedInUserName);
     }
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿using Core.Dtos.TakenQuestDto;
+﻿using Core.Dtos.TakenQuestDtos;
 using Core.Entities;
 
 namespace Core.EntityExtensions.TakenQuestExtensions;

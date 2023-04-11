@@ -27,3 +27,13 @@ export interface IQuestDetails {
 
     questStatus: string;
 }
+
+export interface ICreateQuest {
+    title: string;
+
+    description: string;
+
+    reward: number;
+
+    capacity: number;
+}

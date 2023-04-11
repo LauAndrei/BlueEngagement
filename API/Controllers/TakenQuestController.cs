@@ -1,6 +1,7 @@
 ﻿using API.Extensions.ClaimsExtensions;
 using Core.Dtos.ProofDto;
-using Core.Dtos.TakenQuestDto;
+using Core.Dtos.QuestDtos;
+using Core.Dtos.TakenQuestDtos;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Interfaces.ServiceInterfaces;
@@ -29,12 +30,12 @@ public class TakenQuestController : ControllerBase
     ///     A list of TakenQuestDto representing the quests object a user has accepted / taken
     /// </returns>
     [HttpGet]
-    [Route("GetAllTakenQuestsForUser")]
-    public async Task<List<TakenQuestDto>> GetAllTakenQuestsForUser()
+    [Route("GetAllAcceptedQuestsForUser")]
+    public async Task<List<QuestDto>> GetAllAcceptedQuestsForUser()
     {
         var loggedInUserId = User.GetUserId();
 
-        return await _takenQuestService.GetAllTakenQuestForUser(loggedInUserId);
+        return await _takenQuestService.GetAllAcceptedQuestForUser(loggedInUserId);
     }
 
     /// <summary>
@@ -47,6 +48,22 @@ public class TakenQuestController : ControllerBase
     public async Task<TakenQuest?> GetTakenQuestById(int id)
     {
         return await _takenQuestService.GetTakenQuestById(id);
+    }
+
+    /// <summary>
+    ///     Method tested;
+    ///     Search and returns if found a taken quest if found having as owner the logged in user id,
+    ///     and having the quest the questId.
+    /// </summary>
+    /// <param name="questId"></param>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("FindTakenQuestByUserIdAndQuestId/{questId}")]
+    public async Task<TakenQuest?> FindTakenQuestByUserIdAndQuestId(int questId)
+    {
+        var loggedInUserId = User.GetUserId();
+
+        return await _takenQuestService.FindTakenQuestByUserIdAndQuestId(loggedInUserId, questId);
     }
 
     /// <summary>
@@ -103,6 +120,15 @@ public class TakenQuestController : ControllerBase
 
         return await _takenQuestService.DeleteTakenQuest(id);
     }
+
+    [HttpGet]
+    [Route("GetAllCompletedQuestsForLoggedInUser")]
+    public async Task<List<QuestDto>> GetAllCompletedQuestsForLoggedInUser()
+    {
+        var loggedInUser = User.GetUserId();
+
+        return await _takenQuestService.GetAllCompletedQuestsForUser(loggedInUser);
+    }
     
     /// <summary>
     ///     Method tested;
@@ -125,7 +151,7 @@ public class TakenQuestController : ControllerBase
     {
         var loggedInUserId = User.GetUserId();
 
-        var takenQuest = await _takenQuestService.GetTakenQuestById(id);
+        var takenQuest = await _takenQuestService.FindTakenQuestByUserIdAndQuestId(loggedInUserId, id);
 
         if (takenQuest is null)
         {

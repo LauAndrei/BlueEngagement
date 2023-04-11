@@ -1,0 +1,6 @@
+<div>
+    <h1 *ngIf="questCards.length == 0">You currently have no quest created</h1>
+    <div *ngFor="let quest of questCards" class="mt-3">
+        <app-quest-card [quest]="quest"></app-quest-card>
+    </div>
+</div>

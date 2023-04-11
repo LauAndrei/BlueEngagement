@@ -4,14 +4,14 @@
     class="card py-3 px-4 w-100 h-100 hover"
 >
     <div *ngIf="main" class="d-flex flex-row align-items-center">
-        <img class="trophy me-1" src="assets/trophy_icon.png" />
+        <img class="trophy me-1" src="assets/trophy_icon_colored.png" />
         <p style="font-size: 20px">
             GET
             <span
                 ><strong>{{ this.quest.reward }}</strong></span
             >
         </p>
-        <img class="star ms-1" src="assets/star_icon.png" />
+        <img class="star ms-1" src="assets/star_icon_color.png" />
     </div>
 
     <div>
@@ -43,7 +43,9 @@
                     <button
                         *ngIf="main"
                         class="btn btn-primary"
-                        routerLink="{{ this.quest.id }}/{{ this.quest.slug }}"
+                        routerLink="/quests/{{ this.quest.id }}/{{
+                            this.quest.slug
+                        }}"
                     >
                         See Details
                     </button>

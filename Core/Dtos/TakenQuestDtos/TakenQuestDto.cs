@@ -1,11 +1,9 @@
-﻿using Core.Entities;
-
-namespace Core.Dtos.TakenQuestDto;
+﻿namespace Core.Dtos.TakenQuestDtos;
 
 public class TakenQuestDto
 {
     public int Id { get; set; }
-    
+
     public string Description { get; set; }
     
     public int Reward { get; set; }

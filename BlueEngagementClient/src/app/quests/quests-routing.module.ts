@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { QuestsComponent } from './quests.component';
 import { QuestDetailsComponent } from './quest-details/quest-details.component';
+import { CreateQuestComponent } from './create-quest/create-quest.component';
 
 const routes: Routes = [
     {
@@ -13,6 +14,10 @@ const routes: Routes = [
     {
         path: ':id/:slug',
         component: QuestDetailsComponent,
+    },
+    {
+        path: 'create-quest',
+        component: CreateQuestComponent,
     },
 ];
 

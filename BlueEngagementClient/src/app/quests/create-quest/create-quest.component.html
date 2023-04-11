@@ -1,0 +1,70 @@
+<!--suppress TypeScriptValidateTypes -->
+<div class="text-center container">
+    <form class="container col-6">
+        <h1>Create a Quest!</h1>
+
+        <div class="my-3">
+            <app-text-input
+                [formControl]="this.form.controls['title']"
+                [formSubmitted]="this.formSubmitted"
+                [label]="'Title'"
+                [placeholder]="'title'"
+                [type]="'text'"
+            ></app-text-input>
+        </div>
+
+        <div class="my-3">
+            <textarea
+                [formControl]="this.form.controls['description']"
+                [ngClass]="{
+            'is-invalid':
+                (this.form.controls['description'] && this.form.controls['description'].errors?.['required']) &&
+                (this.form.controls['description']!.touched || formSubmitted)
+
+            }"
+                class="form-control w-100"
+                placeholder="Description"
+                style="height: 150px"
+            ></textarea>
+            <small
+                *ngIf="
+        (
+        this.form.controls['description'] &&
+        this.form.controls['description'].errors?.['required']) &&
+    (this.form.controls['description']!.touched || formSubmitted)
+        "
+                class="text-danger mb-3 d-flex"
+                >Description is required</small
+            >
+        </div>
+
+        <div class="row my-2">
+            <div class="col-6">
+                <app-text-input
+                    [formControl]="this.form.controls['reward']"
+                    [formSubmitted]="this.formSubmitted"
+                    [label]="'Reward'"
+                    [placeholder]="'reward'"
+                    [type]="'number'"
+                ></app-text-input>
+            </div>
+            <div class="col-6">
+                <app-text-input
+                    [formControl]="this.form.controls['capacity']"
+                    [formSubmitted]="this.formSubmitted"
+                    [label]="'Maximum Rewards'"
+                    [placeholder]="'capacity'"
+                    [type]="'number'"
+                ></app-text-input>
+            </div>
+        </div>
+        <div class="mt-4">
+            <button
+                (click)="createQuest()"
+                class="btn btn-primary form-control"
+            >
+                Post Quest!
+            </button>
+        </div>
+    </form>
+</div>

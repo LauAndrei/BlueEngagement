@@ -1,6 +1,14 @@
 <div class="container pb-4">
-    <h2>Quests</h2>
-
+    <div class="d-flex flex-row justify-content-between mt-3 mb-3">
+        <h2>Quests</h2>
+        <button
+            class="btn btn-primary"
+            routerLink="create-quest"
+            style="height: 37px"
+        >
+            Create Quest
+        </button>
+    </div>
     <div class="d-grid gap-3 custom-grid">
         <div *ngFor="let quest of quests" class="col">
             <app-quest-card [quest]="quest"></app-quest-card>

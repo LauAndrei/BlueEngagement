@@ -12,7 +12,7 @@ public static class QuestExtensions
             Id = quest.Id,
             Title = quest.Title,
             Slug = quest.Slug,
-            Description = quest.Description.Length > 160 ? quest.Description[..160] + ".." : quest.Description,
+            Description = quest.Description.Length > 148 ? quest.Description[..148] + ".." : quest.Description,
             Reward = quest.Reward,
             OwnerUsername = quest.Owner.UserName,
             DatePosted = quest.DatePosted
@@ -30,6 +30,20 @@ public static class QuestExtensions
             Reward = quest.Reward,
             OwnerUsername = ownerUsername,
             DatePosted = quest.DatePosted
+        };
+    }
+
+    public static QuestDto ToQuestDto(this TakenQuest takenQuest)
+    {
+        return new QuestDto
+        {
+            Id = takenQuest.Quest.Id,
+            Title = takenQuest.Quest.Title,
+            Slug = takenQuest.Quest.Slug,
+            Description = takenQuest.Quest.Description,
+            OwnerUsername = takenQuest.Quest.Owner.UserName,
+            Reward = takenQuest.Quest.Reward,
+            DatePosted = takenQuest.Quest.DatePosted
         };
     }
 
